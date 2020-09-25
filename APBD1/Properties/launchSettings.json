@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "APBD1": {
+      "commandName": "Project",
+      "commandLineArgs": "https://support.google.com/mail/thread/7926745?hl=en"
+    }
+  }
+}

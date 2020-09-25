@@ -9,25 +9,50 @@ namespace APBD1
 	{
 		static async Task Main(string[] args)
 		{
-			var url = "https://support.google.com/mail/thread/7926745?hl=en";
-			var httpClient = new HttpClient();
-
-			var response = await httpClient.GetAsync(url);
-
-			if (response.IsSuccessStatusCode)
+			if (args.Length == 1)
 			{
-				var body = await response.Content.ReadAsStringAsync();
-				var emailRegex = new Regex(@"\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", RegexOptions.IgnoreCase);
-
-				var emails = emailRegex.Matches(body);
-
-				foreach(var email in emails)
+				if (args[0] != null)
 				{
-					
-					////fsdfklsjdflksj
+					var url = args[0];
+					var httpClient = new HttpClient();
+
+					var response = await httpClient.GetAsync(url);
+
+					if (response.IsSuccessStatusCode)
+					{
+						var body = await response.Content.ReadAsStringAsync();
+						var emailRegex = new Regex(@"\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", RegexOptions.IgnoreCase);
+
+						var emails = emailRegex.Matches(body);
+						if (emails != null)
+						{
+							foreach (var email in emails)
+							{
+								Console.WriteLine(email);
+							}
+						}
+						else
+						{
+							Console.WriteLine("No emails were found :(");
+						}
+					}
+					else
+					{
+						Console.WriteLine("Error occured while downloading the Page :(");
+					}
+
+					httpClient.Dispose();
+					response.Dispose();
+				}
+				else
+				{
+					throw new ArgumentException();
 				}
 			}
-
+			else
+			{
+				throw new ArgumentNullException("Please pass a url");
+			}
 
 		}
 	}
