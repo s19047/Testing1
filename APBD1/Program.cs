@@ -23,7 +23,8 @@ namespace APBD1
 
 				foreach(var email in emails)
 				{
-					Console.WriteLine(email);
+					
+					////fsdfklsjdflksj
 				}
 			}
 
